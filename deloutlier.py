@@ -9,18 +9,14 @@ import pandas as pd
 import numpy as np
 
 def DelOutlier(df):
-    i = 0
     cols = df.columns
     for i in cols:
         q1 = df[i].quantile(.25)
         q3 = df[i].quantile(.75)
         iqr = q3 - q1
         line = 1.5 * iqr
-        min_line = q1 - iqr
-        max_line = q3 + iqr
-        min_index = df[df[i] < min_line].index
-        max_index = df[df[i] > max_line].index
-        df = df.drop(min_index, axis = 0)
-        df = df.drop(max_index, axis = 0)
+        min_line = q1 - line
+        max_line = q3 + line
+        df[i] = np.where((df[i] < min_line) | (df[i] > max_line), np.nan, df[i])
     df = df.dropna(axis = 0)
     return df
