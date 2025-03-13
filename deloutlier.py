@@ -14,11 +14,9 @@ def DelOutlier(df):
         q1 = df[i].quantile(.25)
         q3 = df[i].quantile(.75)
         iqr = q3 - q1
-        print(iqr)
         line = 1.5 * iqr
         min_line = q1 - line
         max_line = q3 + line
-        print(max_line)
         df[i] = np.where((df[i] < min_line) | (df[i] > max_line), np.nan, df[i])
     df = df.dropna(axis = 0)
     return df
