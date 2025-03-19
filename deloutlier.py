@@ -20,3 +20,12 @@ def DelOutlier(df):
         df[i] = np.where((df[i] < min_line) | (df[i] > max_line), np.nan, df[i])
     df = df.dropna(axis = 0)
     return df
+
+def DelOutlierZscore(df):
+    th = 3
+    cols = df.columns
+    for i in cols:
+        z = np.abs(df[i] - np.mean(df[i])) / np.std(df[i])
+        df[i] = np.where(z > th, np.nan, df[i])
+    df = df.dropna(axis = 0)
+    return df
