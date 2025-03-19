@@ -4,6 +4,12 @@ iqr을 이용해 일정 선 미만 혹은 초과인 값들을 제거해준다.
 최소는 min_line이고 최대는 max_line이다.
 이 값을 기준으로 이상치를 제거
 '''
+'''
+zscore를 기준으로 이상치를 제거하는 함수도 추가했다.
+이 함수는 반복문을 이용해 각 열별로 해당 값의 zscore를 구한다.
+그 후 그 zscore가 일정 값을 넘어가면 nan으로 바꾼다.
+마지막 데이터프레임에서 dropna를 해줌.
+'''
 
 import pandas as pd
 import numpy as np
